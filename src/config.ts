@@ -37,10 +37,10 @@ export const APP = {
 
   // 💳 Secure Payment methods shown in footer
   paymentMethods: [
+    { name: "PayPal", icon: "paypal" },
+    { name: "Gumroad", icon: "🛒" },
     { name: "Visa", icon: "💳" },
     { name: "Mastercard", icon: "💳" },
-    { name: "PayPal", icon: "🅿️" },
-    { name: "Google Pay", icon: "📱" },
     { name: "Apple Pay", icon: "🍎" },
   ],
 };
@@ -76,7 +76,7 @@ export const PRIVACY_POLICY = {
     {
       heading: "5. Third-Party Services",
       content:
-        "We may use third-party services for:\n\n• Payment Processing: Google Play Billing for subscription payments. We do not store your payment card details.\n• Exchange Rates: Live currency exchange rate data from trusted financial data providers.\n• Analytics: Anonymous usage analytics to improve app performance and user experience.\n\nThese third parties have their own privacy policies governing the use of your information.",
+        "We may use third-party services for:\n\n• Payment Processing: PayPal and Gumroad for premium subscription payments. We do not store your payment card details.\n• Exchange Rates: Live currency exchange rate data from trusted financial data providers.\n• Analytics: Anonymous usage analytics to improve app performance and user experience.\n\nThese third parties have their own privacy policies governing the use of your information.",
     },
     {
       heading: "6. Data Sharing",
@@ -96,7 +96,7 @@ export const PRIVACY_POLICY = {
     {
       heading: "9. Changes to This Policy",
       content:
-        "We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy within the app and updating the 'Last Updated' date. Your continued use of the app after changes constitutes acceptance of the updated policy.",
+        "We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting the new policy on our website and updating the 'Last Updated' date. Your continued use of the app after changes constitutes acceptance of the updated policy.",
     },
     {
       heading: "10. Contact Us",
@@ -129,12 +129,12 @@ export const TERMS_OF_SERVICE = {
     {
       heading: "4. Free and Premium Plans",
       content:
-        "The App offers both free and premium subscription plans:\n\n• Free Plan: Includes basic features with limitations on the number of bills and available currencies.\n• Premium Plan: Provides unlimited access to all features including advanced analytics, payment history, savings projections, and data export.\n\nPremium subscriptions are billed through Google Play and auto-renew unless cancelled.",
+        "The App offers both free and premium subscription plans:\n\n• Free Plan: Includes basic features with limitations on the number of bills and available currencies.\n• Premium Plan: Provides unlimited access to all features including advanced analytics, payment history, savings projections, and data export.\n\nPremium subscriptions are processed securely through PayPal or Gumroad and auto-renew unless cancelled.",
     },
     {
       heading: "5. Subscription & Billing",
       content:
-        "• Premium subscriptions are managed through Google Play Store.\n• Payment is charged to your Google Play account at confirmation of purchase.\n• Subscriptions auto-renew unless auto-renew is turned off at least 24 hours before the end of the current period.\n• You can manage and cancel your subscription through Google Play settings.\n• No partial refunds are provided for unused portions of a subscription period.",
+        "• Premium subscriptions are processed through PayPal or Gumroad.\n• Payment is charged at confirmation of purchase via your chosen payment method.\n• Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.\n• You can manage and cancel your subscription at any time through your PayPal or Gumroad account.\n• No partial refunds are provided for unused portions of a subscription period.",
     },
     {
       heading: "6. User Responsibilities",
@@ -170,6 +170,43 @@ export const TERMS_OF_SERVICE = {
 };
 
 // ── PRICING MODAL ──────────────────────────────────────────
+// ── PREMIUM PAYMENT PAGE ───────────────────────────────────
+// 🔗 Update these URLs with your real PayPal/Gumroad links
+export const PAYMENT_OPTIONS = {
+  title: "Upgrade to Premium",
+  subtitle: "Choose your preferred payment method and unlock all premium features instantly.",
+  paypal: {
+    name: "PayPal",
+    icon: "paypal",
+    description: "Pay with PayPal — secure, fast, and trusted worldwide.",
+    monthlyUrl: "https://www.paypal.com/webapps/billing/subscriptions?YOUR_MONTHLY_ID",
+    yearlyUrl: "https://www.paypal.com/webapps/billing/subscriptions?YOUR_YEARLY_ID",
+  },
+  gumroad: {
+    name: "Gumroad",
+    icon: "🛒",
+    description: "Pay with Gumroad — supports credit cards, Apple Pay, and Google Pay.",
+    monthlyUrl: "https://YOURNAME.gumroad.com/l/premium-monthly",
+    yearlyUrl: "https://YOURNAME.gumroad.com/l/premium-yearly",
+  },
+  instructions: [
+    { step: 1, text: "Choose your plan and payment method below", icon: "👆" },
+    { step: 2, text: "Complete payment on the secure page", icon: "💳" },
+    { step: 3, text: "Return to the app — premium unlocks within minutes!", icon: "🚀" },
+  ],
+  premiumFeatures: [
+    "Unlimited bills & subscriptions",
+    "Full analytics with 6-month trends",
+    "Complete payment history",
+    "Late fee calculator",
+    "Savings projections (3/6/12 months)",
+    "CSV & PDF export",
+    "Category spending limits",
+    "22+ currencies with live rates",
+    "Priority support",
+  ],
+};
+
 export const PRICING_MODAL = {
   title: "Upgrade to Premium",
   icon: "💎",
@@ -186,7 +223,7 @@ export const PRICING_MODAL = {
     },
     {
       step: 3,
-      text: "Choose your plan (Monthly or Yearly) and complete payment securely via Google Play",
+      text: "Choose your plan (Monthly or Yearly) and complete payment securely via PayPal or Gumroad",
       icon: "💳",
     },
     {
@@ -196,8 +233,8 @@ export const PRICING_MODAL = {
     },
   ],
   bottomNote:
-    "Your subscription is managed by Google Play. You can cancel anytime — no questions asked.",
-  ctaText: "Open Google Play Store",
+    "Your subscription is managed securely by PayPal or Gumroad. You can cancel anytime — no questions asked.",
+  ctaText: "Open Payment Page",
   secondaryText: "I'll upgrade later",
 };
 
@@ -224,7 +261,7 @@ export const COOKIE_POLICY = {
     {
       heading: "4. Third-Party Cookies",
       content:
-        "Some third-party services used within our App may set their own cookies:\n\n• Google Play Services: For subscription management and authentication.\n• Analytics Providers: For anonymous usage tracking.\n\nThese third parties have their own cookie and privacy policies.",
+        "Some third-party services used within our App or website may set their own cookies:\n\n• PayPal: For secure payment processing and subscription management.\n• Gumroad: For payment processing and subscription management.\n• Analytics Providers: For anonymous usage tracking.\n\nThese third parties have their own cookie and privacy policies.",
     },
     {
       heading: "5. Managing Cookies",
@@ -578,8 +615,8 @@ export const FAQ_ITEMS = [
   },
   {
     question: "Can I cancel my subscription anytime?",
-    answer:
-      "Yes, you can cancel anytime through Google Play. You'll continue to have premium access until the end of your current billing period.",
+      answer:
+        "Yes, you can cancel anytime through your PayPal or Gumroad account. You'll continue to have premium access until the end of your current billing period.",
   },
   {
     question: "How does the Late Fee Calculator work?",

@@ -1,110 +1,147 @@
-# 🚀 Netlify Auto-Deploy Setup Guide
+# 🚀 Step-by-Step Deployment Guide
 
-Follow these steps to auto-deploy your website to Netlify every time you push changes to GitHub.
-
----
-
-## Step 1: Create a GitHub Repository
-
-1. Go to [github.com/new](https://github.com/new)
-2. Repository name: `billtracker-website` (or any name you like)
-3. Set to **Public** or **Private** (both work with Netlify)
-4. **Do NOT** initialize with README (we already have files)
-5. Click **Create repository**
+## Your Info
+- GitHub: https://github.com/app4clients
+- Email: support@app4clients.com
 
 ---
 
-## Step 2: Upload Your Project to GitHub
+## PART 1: Upload to GitHub
 
-Open your terminal in the project folder and run:
+### Step 1: Create Repository on GitHub
+1. Go to: https://github.com/new
+2. Repository name: `billtracker-website`
+3. Description: `All-in-One Bill Tracker - Official Website`
+4. Set to **Public**
+5. ❌ Do NOT check "Add a README"
+6. ❌ Do NOT choose a .gitignore template
+7. ❌ Do NOT choose a license
+8. Click **"Create repository"**
+
+### Step 2: Open Terminal in Your Project Folder
+- If you're using VS Code: Terminal → New Terminal
+- If you're using a file explorer: Right-click in the project folder → "Open in Terminal"
+
+### Step 3: Run These Commands (copy-paste one by one)
 
 ```bash
-# Initialize git
 git init
+```
 
-# Add all files
+```bash
 git add .
+```
 
-# Commit
-git commit -m "Initial commit - BillTracker website"
+```bash
+git commit -m "Initial commit - All-in-One Bill Tracker website"
+```
 
-# Connect to GitHub (replace YOUR_USERNAME and YOUR_REPO)
-git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
-
-# Push to GitHub
+```bash
 git branch -M main
+```
+
+```bash
+git remote add origin https://github.com/app4clients/billtracker-website.git
+```
+
+```bash
 git push -u origin main
 ```
 
----
+⚠️ If asked to login, use your GitHub credentials or Personal Access Token.
 
-## Step 3: Connect Netlify to GitHub
-
-1. Go to [app.netlify.com](https://app.netlify.com)
-2. Sign up / Log in with your **GitHub account**
-3. Click **"Add new site" → "Import an existing project"**
-4. Select **"Deploy with GitHub"**
-5. Find and select your `billtracker-website` repository
-6. Netlify will auto-detect the `netlify.toml` config ✅
-7. Click **"Deploy site"**
+✅ Done! Your code is now on GitHub at:
+https://github.com/app4clients/billtracker-website
 
 ---
 
-## Step 4: Wait ~30 seconds... Done! 🎉
+## PART 2: Connect Netlify to GitHub
 
-Netlify will:
-- ✅ Run `npm run build`
-- ✅ Publish the `dist/` folder
-- ✅ Give you a free URL like `https://random-name-12345.netlify.app`
+### Step 1: Go to Netlify
+1. Open: https://app.netlify.com
+2. Click **"Sign up"** if you don't have an account
+3. Choose **"Sign up with GitHub"** (easiest option)
+4. Authorize Netlify to access your GitHub
+
+### Step 2: Import Your Site
+1. After login, click **"Add new site"** (or "Sites" → "Add new site")
+2. Select **"Import an existing project"**
+3. Select **"Deploy with GitHub"**
+4. If asked, click **"Authorize Netlify"** for GitHub
+5. Find and click on **"app4clients"** (your organization)
+6. Find and click on **"billtracker-website"** repository
+
+### Step 3: Configure Build Settings
+Netlify will auto-detect `netlify.toml` — just verify:
+
+| Setting | Value |
+|---------|-------|
+| Branch to deploy | `main` |
+| Build command | `npm run build` |
+| Publish directory | `dist` |
+
+⚠️ If not auto-detected, enter them manually.
+
+### Step 4: Deploy!
+1. Click **"Deploy site"**
+2. Wait ~30-60 seconds
+3. ✅ Your site is LIVE!
+
+Netlify gives you a URL like:
+```
+https://random-name-12345.netlify.app
+```
+
+### Step 5: Customize Your URL
+1. In Netlify dashboard → **Site settings**
+2. Click **"Domain management"**
+3. Click **"Change site name"**
+4. Type: `allinonebilltracker` (or any name you like)
+5. Click **Save**
+
+Your new URL:
+```
+https://allinonebilltracker.netlify.app
+```
 
 ---
 
-## Step 5 (Optional): Customize Your URL
+## PART 3: How to Update Your Website
 
-In Netlify dashboard:
-1. Go to **Site settings → Domain management**
-2. Click **Change site name**
-3. Pick a name like: `billtracker.netlify.app`
-
-Or add your own custom domain (e.g., `billtracker.app`)
-
----
-
-## 🔄 How Auto-Deploy Works
-
-From now on, every time you:
+After making changes to your code, run these commands:
 
 ```bash
-# 1. Edit files (e.g., change logo in config.ts)
-
-# 2. Push to GitHub
 git add .
-git commit -m "Updated logo"
+```
+
+```bash
+git commit -m "Updated logo and pricing"
+```
+
+```bash
 git push
 ```
 
-Netlify will **automatically** rebuild and redeploy your site in ~30 seconds! 🚀
+Netlify will **automatically** rebuild and deploy in ~30 seconds! 🔄
 
 ---
 
-## 📝 Quick Reference
+## Quick Reference
 
-| What | Where |
-|------|-------|
-| Change logo/text/URLs | Edit `src/config.ts` |
-| Change design/layout | Edit `src/App.tsx` |
-| Deploy settings | Edit `netlify.toml` |
-| Site URL | Netlify dashboard → Domain management |
-| Build logs | Netlify dashboard → Deploys tab |
+| What | Command / URL |
+|------|--------------|
+| GitHub repo | https://github.com/app4clients/billtracker-website |
+| Netlify dashboard | https://app.netlify.com |
+| Update website | `git add . && git commit -m "Update" && git push` |
 
 ---
 
-## ⚡ Even Faster: One-Click Deploy
+## ⚡ Alternative: One-Click Deploy (No GitHub)
 
-If you don't want GitHub auto-deploy and just want to deploy RIGHT NOW:
+If you just want to deploy RIGHT NOW without GitHub:
 
-1. Run `npm run build` locally
-2. Go to [app.netlify.com/drop](https://app.netlify.com/drop)
+1. Run `npm run build` in terminal
+2. Go to https://app.netlify.com/drop
 3. Drag the `dist/` folder onto the page
 4. Done in 10 seconds!
 

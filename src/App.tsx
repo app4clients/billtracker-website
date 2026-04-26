@@ -18,13 +18,13 @@ import {
   PRICING,
   FAQ_ITEMS,
   SUPPORT_CENTER,
-  PRICING_MODAL,
   PRIVACY_POLICY,
   TERMS_OF_SERVICE,
   COOKIE_POLICY,
   FOOTER,
   STATS_BAR,
   WHY_CHOOSE_US,
+  PAYMENT_OPTIONS,
   DOWNLOAD_SECTION,
 } from "./config";
 
@@ -1017,11 +1017,7 @@ function PremiumComparison() {
 // 💲 PRICING
 // =============================================================
 
-function PricingSection({
-  onPlanClick,
-}: {
-  onPlanClick: (plan: "monthly" | "yearly") => void;
-}) {
+function PricingSection() {
   return (
     <Section id="pricing" className="bg-slate-900/30">
       <SectionTitle
@@ -1045,12 +1041,12 @@ function PricingSection({
                 </li>
               ))}
             </ul>
-            <button
-              onClick={() => onPlanClick("monthly")}
-              className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 px-6 py-3 text-sm font-bold text-slate-200 transition-all hover:bg-slate-800 hover:border-slate-500 active:scale-95 cursor-pointer"
+            <a
+              href="#premium-pay"
+              className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl border border-slate-600 px-6 py-3 text-sm font-bold text-slate-200 transition-all hover:bg-slate-800 hover:border-slate-500 active:scale-95"
             >
               {PRICING.monthly.cta}
-            </button>
+            </a>
           </div>
         </FadeIn>
 
@@ -1074,12 +1070,12 @@ function PricingSection({
                 </li>
               ))}
             </ul>
-            <button
-              onClick={() => onPlanClick("yearly")}
-              className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 px-6 py-3 text-sm font-bold text-slate-950 transition-all hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 active:scale-95 cursor-pointer"
+            <a
+              href="#premium-pay"
+              className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 px-6 py-3 text-sm font-bold text-slate-950 transition-all hover:shadow-lg hover:shadow-cyan-500/25 hover:scale-105 active:scale-95"
             >
               {PRICING.yearly.cta}
-            </button>
+            </a>
           </div>
         </FadeIn>
       </div>
@@ -1344,6 +1340,39 @@ function FooterSection({ onLegalClick }: { onLegalClick: (page: "privacy" | "ter
               ))}
             </ul>
           </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="text-sm font-semibold mb-4 text-slate-200 uppercase tracking-wider">
+              Legal
+            </h4>
+            <ul className="space-y-2.5">
+              <li>
+                <button
+                  onClick={() => onLegalClick("privacy")}
+                  className="text-sm text-slate-500 hover:text-cyan-300 transition-colors cursor-pointer"
+                >
+                  🛡️ Privacy Policy
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onLegalClick("terms")}
+                  className="text-sm text-slate-500 hover:text-cyan-300 transition-colors cursor-pointer"
+                >
+                  📜 Terms of Service
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onLegalClick("cookies")}
+                  className="text-sm text-slate-500 hover:text-cyan-300 transition-colors cursor-pointer"
+                >
+                  🍪 Cookie Policy
+                </button>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
 
@@ -1366,7 +1395,15 @@ function FooterSection({ onLegalClick }: { onLegalClick: (page: "privacy" | "ter
                   key={method.name}
                   className="flex items-center gap-1.5 rounded-lg border border-slate-700/50 bg-slate-900 px-3 py-2 text-xs text-slate-400"
                 >
-                  <span className="text-base">{method.icon}</span>
+                  {method.icon === "paypal" ? (
+                    <svg className="h-5 w-auto" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485z" fill="#00457C"/>
+                      <path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H2.47l2.26-14.326C4.813 6.27 5.26 5.888 5.785 5.888h7.46c2.57 0 4.578.543 5.69 1.81.413.47.7 1.006.862 1.62.07.263.117.542.137.835.008.107.012.217.014.33a7.97 7.97 0 01-.197 1.728z" fill="#0079C1"/>
+                      <path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326h-.994c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H5.544l.45-2.856.827-5.226.01-.062c.085-.542.547-.94 1.093-.94h1.807c4.298 0 7.664-1.747 8.647-6.797.03-.149.054-.294.077-.437.292-1.867-.002-3.137-1.012-4.287a5.59 5.59 0 00-.862-1.62z" fill="#00457C" opacity=".7"/>
+                    </svg>
+                  ) : (
+                    <span className="text-base">{method.icon}</span>
+                  )}
                   <span className="font-medium">{method.name}</span>
                 </div>
               ))}
@@ -1374,7 +1411,7 @@ function FooterSection({ onLegalClick }: { onLegalClick: (page: "privacy" | "ter
 
             {/* Trust text */}
             <p className="text-xs text-slate-600 text-center max-w-md">
-              🔒 All transactions are encrypted and processed through secure payment gateways. Your payment information is never stored on our servers.
+              🔒 Payments processed securely via <strong className="text-slate-400">PayPal</strong> &amp; <strong className="text-slate-400">Gumroad</strong>. Your payment info is encrypted and never stored on our servers. Cancel anytime.
             </p>
           </div>
         </div>
@@ -1453,7 +1490,7 @@ function LegalModal({
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-3xl max-h-[85vh] flex flex-col rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl shadow-black/50 animate-in">
+      <div className="relative w-full max-w-3xl max-h-[85vh] flex flex-col rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl shadow-black/50 transition-all duration-300 scale-100">
         {/* Header */}
         <div className="flex items-center justify-between border-b border-slate-800 px-6 py-4 shrink-0">
           <div className="flex items-center gap-3">
@@ -1685,125 +1722,179 @@ function DownloadSection() {
 }
 
 // =============================================================
-// 💎 PRICING MODAL
+// 💎 PREMIUM PAYMENT PAGE
 // =============================================================
 
-function PricingModal({
-  isOpen,
-  onClose,
-  plan,
-}: {
-  isOpen: boolean;
-  onClose: () => void;
-  plan: "monthly" | "yearly" | null;
-}) {
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    if (isOpen) {
-      document.addEventListener("keydown", handler);
-      document.body.style.overflow = "hidden";
-    }
-    return () => {
-      document.removeEventListener("keydown", handler);
-      document.body.style.overflow = "";
-    };
-  }, [isOpen, onClose]);
-
-  if (!isOpen || !plan) return null;
-
-  const planLabel = plan === "monthly" ? "Monthly" : "Yearly";
-  const planPrice = plan === "monthly" ? "$2.99/month" : "$19.99/year";
-
+function PremiumPaymentPage() {
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-        onClick={onClose}
+    <Section id="premium-pay" className="bg-slate-900/30">
+      <SectionTitle
+        badge="💎 Upgrade Now"
+        title={PAYMENT_OPTIONS.title}
+        subtitle={PAYMENT_OPTIONS.subtitle}
       />
 
-      {/* Modal */}
-      <div className="relative w-full max-w-lg rounded-2xl border border-slate-700 bg-slate-900 shadow-2xl shadow-black/50">
-        {/* Header with gradient */}
-        <div className="relative overflow-hidden rounded-t-2xl bg-gradient-to-r from-cyan-500/20 to-emerald-500/20 border-b border-slate-800 px-6 py-5">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 h-px w-3/4 bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent" />
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <span className="text-3xl">{PRICING_MODAL.icon}</span>
+      {/* How it works */}
+      <FadeIn className="mb-10">
+        <div className="mx-auto max-w-2xl grid grid-cols-3 gap-4">
+          {PAYMENT_OPTIONS.instructions.map((s) => (
+            <div key={s.step} className="text-center">
+              <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-xl">
+                {s.icon}
+              </div>
+              <p className="text-xs sm:text-sm text-slate-400 leading-snug">{s.text}</p>
+            </div>
+          ))}
+        </div>
+      </FadeIn>
+
+      {/* Payment Options */}
+      <div className="mx-auto max-w-4xl grid gap-6 lg:grid-cols-2">
+
+        {/* PayPal */}
+        <FadeIn>
+          <div className="h-full rounded-2xl border border-blue-500/30 bg-slate-900 p-6 flex flex-col">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20">
+                <svg className="h-8 w-auto" viewBox="0 0 24 24">
+                  <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485z" fill="#00457C"/>
+                  <path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H2.47l2.26-14.326C4.813 6.27 5.26 5.888 5.785 5.888h7.46c2.57 0 4.578.543 5.69 1.81.413.47.7 1.006.862 1.62.07.263.117.542.137.835.008.107.012.217.014.33a7.97 7.97 0 01-.197 1.728z" fill="#0079C1"/>
+                  <path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326h-.994c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H5.544l.45-2.856.827-5.226.01-.062c.085-.542.547-.94 1.093-.94h1.807c4.298 0 7.664-1.747 8.647-6.797.03-.149.054-.294.077-.437.292-1.867-.002-3.137-1.012-4.287a5.59 5.59 0 00-.862-1.62z" fill="#00457C" opacity=".7"/>
+                </svg>
+              </div>
               <div>
-                <h2 className="text-lg font-bold sm:text-xl">{PRICING_MODAL.title}</h2>
-                <p className="text-sm text-slate-400">
-                  {planLabel} plan — <span className="text-cyan-300 font-semibold">{planPrice}</span>
-                </p>
+                <h3 className="text-lg font-bold">{PAYMENT_OPTIONS.paypal.name}</h3>
+                <p className="text-xs text-slate-400">{PAYMENT_OPTIONS.paypal.description}</p>
               </div>
             </div>
-            <button
-              onClick={onClose}
-              className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-700 bg-slate-800 text-slate-400 transition-all hover:bg-slate-700 hover:text-white active:scale-90"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
 
-        {/* Steps */}
-        <div className="px-6 py-5 space-y-4">
-          <p className="text-sm text-slate-400">
-            To subscribe to the <strong className="text-white">{planLabel} plan</strong>, follow these simple steps:
-          </p>
-
-          <div className="space-y-3">
-            {PRICING_MODAL.steps.map((s) => (
-              <div
-                key={s.step}
-                className="flex items-start gap-3 rounded-xl border border-slate-800 bg-slate-950 p-3"
+            {/* Monthly */}
+            <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 mb-3">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <p className="text-sm font-bold">Monthly Plan</p>
+                  <p className="text-xs text-slate-500">$2.99/month · Cancel anytime</p>
+                </div>
+                <span className="text-xl font-extrabold text-white">$2.99</span>
+              </div>
+              <a
+                href={PAYMENT_OPTIONS.paypal.monthlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white transition-all hover:bg-blue-500 hover:scale-[1.02] active:scale-95"
               >
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-xs font-black text-slate-950">
-                  {s.step}
+                <span className="inline-flex items-center gap-1.5"><svg className="h-4 w-auto" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485z" fill="white"/><path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H2.47l2.26-14.326C4.813 6.27 5.26 5.888 5.785 5.888h7.46c2.57 0 4.578.543 5.69 1.81.413.47.7 1.006.862 1.62.07.263.117.542.137.835.008.107.012.217.014.33a7.97 7.97 0 01-.197 1.728z" fill="rgba(255,255,255,0.7)"/></svg> Subscribe with PayPal — Monthly</span>
+              </a>
+            </div>
+
+            {/* Yearly */}
+            <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-bold">Yearly Plan</p>
+                    <span className="rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-2 py-0.5 text-[10px] font-bold text-slate-950">SAVE 44%</span>
+                  </div>
+                  <p className="text-xs text-slate-500">$19.99/year · Best value</p>
                 </div>
-                <div className="flex items-start gap-2 pt-1">
-                  <span className="text-lg leading-none">{s.icon}</span>
-                  <p className="text-sm text-slate-300 leading-snug">{s.text}</p>
+                <span className="text-xl font-extrabold text-amber-300">$19.99</span>
+              </div>
+              <p className="text-[11px] text-emerald-300 mb-2">💰 Save $15.89 per year vs monthly!</p>
+              <a
+                href={PAYMENT_OPTIONS.paypal.yearlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 px-4 py-3 text-sm font-bold text-slate-950 transition-all hover:scale-[1.02] active:scale-95"
+              >
+                <span className="inline-flex items-center gap-1.5"><svg className="h-4 w-auto" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485z" fill="currentColor"/><path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H2.47l2.26-14.326C4.813 6.27 5.26 5.888 5.785 5.888h7.46c2.57 0 4.578.543 5.69 1.81.413.47.7 1.006.862 1.62.07.263.117.542.137.835.008.107.012.217.014.33a7.97 7.97 0 01-.197 1.728z" fill="rgba(255,255,255,0.7)"/></svg> Subscribe with PayPal — Yearly</span>
+              </a>
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Gumroad */}
+        <FadeIn delay={100}>
+          <div className="h-full rounded-2xl border border-pink-500/30 bg-slate-900 p-6 flex flex-col">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-pink-500/10 border border-pink-500/20 text-3xl">
+                {PAYMENT_OPTIONS.gumroad.icon}
+              </div>
+              <div>
+                <h3 className="text-lg font-bold">{PAYMENT_OPTIONS.gumroad.name}</h3>
+                <p className="text-xs text-slate-400">{PAYMENT_OPTIONS.gumroad.description}</p>
+              </div>
+            </div>
+
+            {/* Monthly */}
+            <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 mb-3">
+              <div className="flex items-center justify-between mb-2">
+                <div>
+                  <p className="text-sm font-bold">Monthly Plan</p>
+                  <p className="text-xs text-slate-500">$2.99/month · Cancel anytime</p>
                 </div>
+                <span className="text-xl font-extrabold text-white">$2.99</span>
+              </div>
+              <a
+                href={PAYMENT_OPTIONS.gumroad.monthlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center rounded-xl bg-pink-600 px-4 py-3 text-sm font-bold text-white transition-all hover:bg-pink-500 hover:scale-[1.02] active:scale-95"
+              >
+                🛒 Buy on Gumroad — Monthly
+              </a>
+            </div>
+
+            {/* Yearly */}
+            <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 flex-1">
+              <div className="flex items-center justify-between mb-1">
+                <div>
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-bold">Yearly Plan</p>
+                    <span className="rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-2 py-0.5 text-[10px] font-bold text-slate-950">SAVE 44%</span>
+                  </div>
+                  <p className="text-xs text-slate-500">$19.99/year · Best value</p>
+                </div>
+                <span className="text-xl font-extrabold text-amber-300">$19.99</span>
+              </div>
+              <p className="text-[11px] text-emerald-300 mb-2">💰 Save $15.89 per year vs monthly!</p>
+              <a
+                href={PAYMENT_OPTIONS.gumroad.yearlyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-center rounded-xl bg-gradient-to-r from-pink-500 to-violet-500 px-4 py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-95"
+              >
+                🛒 Buy on Gumroad — Yearly
+              </a>
+            </div>
+          </div>
+        </FadeIn>
+      </div>
+
+      {/* Premium Features */}
+      <FadeIn delay={200} className="mt-10">
+        <div className="mx-auto max-w-3xl rounded-2xl border border-slate-800 bg-slate-900 p-6">
+          <h3 className="text-lg font-bold text-center mb-4">✨ Everything included in Premium</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            {PAYMENT_OPTIONS.premiumFeatures.map((feature) => (
+              <div key={feature} className="flex items-center gap-2 text-sm text-slate-300">
+                <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-500/20 text-[10px] text-emerald-300">✓</span>
+                {feature}
               </div>
             ))}
           </div>
-
-          {/* Info banner */}
-          <div className="flex items-start gap-2 rounded-lg border border-amber-500/20 bg-amber-500/5 p-3">
-            <span className="text-sm">💡</span>
-            <p className="text-xs text-amber-200/80 leading-relaxed">
-              {PRICING_MODAL.bottomNote}
-            </p>
-          </div>
         </div>
+      </FadeIn>
 
-        {/* Footer buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 border-t border-slate-800 px-6 py-4">
-          <a
-            href={APP.playStoreUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 px-5 py-3 text-sm font-bold text-slate-950 transition-all hover:scale-105 active:scale-95"
-          >
-            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 01-.61-.92V2.734a1 1 0 01.609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-3.198l2.807 1.626a1 1 0 010 1.73l-2.808 1.626L15.206 12l2.492-2.491zM5.864 2.658L16.8 8.99l-2.302 2.302-8.634-8.634z"/>
-            </svg>
-            {PRICING_MODAL.ctaText}
-          </a>
-          <button
-            onClick={onClose}
-            className="rounded-xl border border-slate-700 px-5 py-3 text-sm font-medium text-slate-400 transition-all hover:bg-slate-800 hover:text-slate-200 active:scale-95"
-          >
-            {PRICING_MODAL.secondaryText}
-          </button>
+      {/* Trust badges */}
+      <FadeIn delay={300} className="mt-6 text-center">
+        <div className="inline-flex flex-wrap justify-center gap-4 text-xs text-slate-600">
+          <span className="flex items-center gap-1">🔒 Secure payment</span>
+          <span className="flex items-center gap-1">↩️ Cancel anytime</span>
+          <span className="flex items-center gap-1">⚡ Instant activation</span>
+          <span className="flex items-center gap-1">📧 support@app4clients.com</span>
         </div>
-      </div>
-    </div>
+      </FadeIn>
+    </Section>
   );
 }
 
@@ -1863,7 +1954,7 @@ function MobileDownloadBar() {
           </div>
         </div>
         <a
-          href={APP.playStoreUrl}
+          href="#download"
           className="shrink-0 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 px-4 py-2 text-xs font-bold text-slate-950 active:scale-95 transition-transform"
         >
           🚀 Install
@@ -1879,7 +1970,6 @@ function MobileDownloadBar() {
 
 export default function App() {
   const [legalModal, setLegalModal] = useState<"privacy" | "terms" | "cookies" | null>(null);
-  const [pricingModal, setPricingModal] = useState<"monthly" | "yearly" | null>(null);
 
   return (
     <div className="min-h-screen bg-slate-950 text-white overflow-x-hidden">
@@ -1899,10 +1989,11 @@ export default function App() {
       <WhyChooseUs />
       <CurrencyShowcase />
       <PremiumComparison />
-      <PricingSection onPlanClick={(plan) => setPricingModal(plan)} />
+      <PricingSection />
       <FAQSection />
       <SupportCenter />
       <CTASection />
+      <PremiumPaymentPage />
       <DownloadSection />
       <FooterSection onLegalClick={setLegalModal} />
 
@@ -1914,9 +2005,6 @@ export default function App() {
       <LegalModal doc={PRIVACY_POLICY} isOpen={legalModal === "privacy"} onClose={() => setLegalModal(null)} />
       <LegalModal doc={TERMS_OF_SERVICE} isOpen={legalModal === "terms"} onClose={() => setLegalModal(null)} />
       <LegalModal doc={COOKIE_POLICY} isOpen={legalModal === "cookies"} onClose={() => setLegalModal(null)} />
-
-      {/* Pricing Modal */}
-      <PricingModal isOpen={pricingModal !== null} plan={pricingModal} onClose={() => setPricingModal(null)} />
     </div>
   );
 }
