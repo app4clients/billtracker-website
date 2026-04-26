@@ -553,39 +553,6 @@ export const PREMIUM_COMPARISON = {
   ],
 };
 
-export const PRICING = {
-  monthly: {
-    label: "Monthly",
-    price: "$2.99",
-    period: "/month",
-    badge: "",
-    features: [
-      "All premium features",
-      "Cancel anytime",
-      "22+ currencies with live rates",
-      "Full analytics & trends",
-      "Priority support",
-    ],
-    cta: "Start Monthly",
-    highlighted: false,
-  },
-  yearly: {
-    label: "Yearly",
-    price: "$19.99",
-    period: "/year",
-    badge: "Save 44%",
-    features: [
-      "All premium features",
-      "Best value plan",
-      "22+ currencies with live rates",
-      "Full analytics & trends",
-      "Priority support",
-    ],
-    cta: "Start Yearly",
-    highlighted: true,
-  },
-};
-
 export const FAQ_ITEMS = [
   {
     question: "Is my financial data secure?",
