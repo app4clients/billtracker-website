@@ -1395,15 +1395,7 @@ function FooterSection({ onLegalClick }: { onLegalClick: (page: "privacy" | "ter
                   key={method.name}
                   className="flex items-center gap-1.5 rounded-lg border border-slate-700/50 bg-slate-900 px-3 py-2 text-xs text-slate-400"
                 >
-                  {method.icon === "paypal" ? (
-                    <svg className="h-5 w-auto" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485z" fill="#00457C"/>
-                      <path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H2.47l2.26-14.326C4.813 6.27 5.26 5.888 5.785 5.888h7.46c2.57 0 4.578.543 5.69 1.81.413.47.7 1.006.862 1.62.07.263.117.542.137.835.008.107.012.217.014.33a7.97 7.97 0 01-.197 1.728z" fill="#0079C1"/>
-                      <path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326h-.994c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H5.544l.45-2.856.827-5.226.01-.062c.085-.542.547-.94 1.093-.94h1.807c4.298 0 7.664-1.747 8.647-6.797.03-.149.054-.294.077-.437.292-1.867-.002-3.137-1.012-4.287a5.59 5.59 0 00-.862-1.62z" fill="#00457C" opacity=".7"/>
-                    </svg>
-                  ) : (
-                    <span className="text-base">{method.icon}</span>
-                  )}
+                  <span className="text-base">{method.icon}</span>
                   <span className="font-medium">{method.name}</span>
                 </div>
               ))}
@@ -1411,7 +1403,7 @@ function FooterSection({ onLegalClick }: { onLegalClick: (page: "privacy" | "ter
 
             {/* Trust text */}
             <p className="text-xs text-slate-600 text-center max-w-md">
-              🔒 Payments processed securely via <strong className="text-slate-400">PayPal</strong> &amp; <strong className="text-slate-400">Gumroad</strong>. Your payment info is encrypted and never stored on our servers. Cancel anytime.
+              🔒 Payments processed securely via <strong className="text-slate-400">Gumroad</strong> (supports PayPal, credit cards &amp; Apple Pay). Your payment info is encrypted and never stored on our servers. Cancel anytime.
             </p>
           </div>
         </div>
@@ -1736,7 +1728,7 @@ function PremiumPaymentPage() {
 
       {/* How it works */}
       <FadeIn className="mb-10">
-        <div className="mx-auto max-w-2xl grid grid-cols-3 gap-4">
+        <div className="mx-auto max-w-2xl grid grid-cols-2 sm:grid-cols-4 gap-4">
           {PAYMENT_OPTIONS.instructions.map((s) => (
             <div key={s.step} className="text-center">
               <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-xl">
@@ -1748,74 +1740,22 @@ function PremiumPaymentPage() {
         </div>
       </FadeIn>
 
-      {/* Payment Options */}
-      <div className="mx-auto max-w-4xl grid gap-6 lg:grid-cols-2">
+      {/* Accepted Payment Methods */}
+      <FadeIn className="mb-8">
+        <div className="mx-auto max-w-md flex flex-wrap justify-center gap-3">
+          {PAYMENT_OPTIONS.acceptedPayments.map((p) => (
+            <span key={p.name} className="rounded-full border border-slate-700 bg-slate-900 px-4 py-1.5 text-xs text-slate-300 flex items-center gap-1.5">
+              <span className="text-sm">{p.icon}</span> {p.name}
+            </span>
+          ))}
+        </div>
+      </FadeIn>
 
-        {/* PayPal */}
-        <FadeIn>
-          <div className="h-full rounded-2xl border border-blue-500/30 bg-slate-900 p-6 flex flex-col">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20">
-                <svg className="h-8 w-auto" viewBox="0 0 24 24">
-                  <path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485z" fill="#00457C"/>
-                  <path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H2.47l2.26-14.326C4.813 6.27 5.26 5.888 5.785 5.888h7.46c2.57 0 4.578.543 5.69 1.81.413.47.7 1.006.862 1.62.07.263.117.542.137.835.008.107.012.217.014.33a7.97 7.97 0 01-.197 1.728z" fill="#0079C1"/>
-                  <path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326h-.994c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H5.544l.45-2.856.827-5.226.01-.062c.085-.542.547-.94 1.093-.94h1.807c4.298 0 7.664-1.747 8.647-6.797.03-.149.054-.294.077-.437.292-1.867-.002-3.137-1.012-4.287a5.59 5.59 0 00-.862-1.62z" fill="#00457C" opacity=".7"/>
-                </svg>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold">{PAYMENT_OPTIONS.paypal.name}</h3>
-                <p className="text-xs text-slate-400">{PAYMENT_OPTIONS.paypal.description}</p>
-              </div>
-            </div>
-
-            {/* Monthly */}
-            <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 mb-3">
-              <div className="flex items-center justify-between mb-2">
-                <div>
-                  <p className="text-sm font-bold">Monthly Plan</p>
-                  <p className="text-xs text-slate-500">$2.99/month · Cancel anytime</p>
-                </div>
-                <span className="text-xl font-extrabold text-white">$2.99</span>
-              </div>
-              <a
-                href={PAYMENT_OPTIONS.paypal.monthlyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-bold text-white transition-all hover:bg-blue-500 hover:scale-[1.02] active:scale-95"
-              >
-                <span className="inline-flex items-center gap-1.5"><svg className="h-4 w-auto" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485z" fill="white"/><path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H2.47l2.26-14.326C4.813 6.27 5.26 5.888 5.785 5.888h7.46c2.57 0 4.578.543 5.69 1.81.413.47.7 1.006.862 1.62.07.263.117.542.137.835.008.107.012.217.014.33a7.97 7.97 0 01-.197 1.728z" fill="rgba(255,255,255,0.7)"/></svg> Subscribe with PayPal — Monthly</span>
-              </a>
-            </div>
-
-            {/* Yearly */}
-            <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 flex-1">
-              <div className="flex items-center justify-between mb-1">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm font-bold">Yearly Plan</p>
-                    <span className="rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 px-2 py-0.5 text-[10px] font-bold text-slate-950">SAVE 44%</span>
-                  </div>
-                  <p className="text-xs text-slate-500">$19.99/year · Best value</p>
-                </div>
-                <span className="text-xl font-extrabold text-amber-300">$19.99</span>
-              </div>
-              <p className="text-[11px] text-emerald-300 mb-2">💰 Save $15.89 per year vs monthly!</p>
-              <a
-                href={PAYMENT_OPTIONS.paypal.yearlyUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full text-center rounded-xl bg-gradient-to-r from-amber-500 to-amber-400 px-4 py-3 text-sm font-bold text-slate-950 transition-all hover:scale-[1.02] active:scale-95"
-              >
-                <span className="inline-flex items-center gap-1.5"><svg className="h-4 w-auto" viewBox="0 0 24 24"><path d="M7.076 21.337H2.47a.641.641 0 01-.633-.74L4.944.901C5.026.382 5.474 0 5.998 0h7.46c2.57 0 4.578.543 5.69 1.81 1.01 1.15 1.304 2.42 1.012 4.287-.023.143-.047.288-.077.437-.983 5.05-4.349 6.797-8.647 6.797H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485z" fill="currentColor"/><path d="M21.05 7.21c-.096.614-.264 1.31-.52 2.067-1.264 3.727-4.397 5.326-8.424 5.326H9.605c-.546 0-1.008.398-1.093.94l-.01.062-.826 5.226-.036.22a.572.572 0 01-.564.485H2.47l2.26-14.326C4.813 6.27 5.26 5.888 5.785 5.888h7.46c2.57 0 4.578.543 5.69 1.81.413.47.7 1.006.862 1.62.07.263.117.542.137.835.008.107.012.217.014.33a7.97 7.97 0 01-.197 1.728z" fill="rgba(255,255,255,0.7)"/></svg> Subscribe with PayPal — Yearly</span>
-              </a>
-            </div>
-          </div>
-        </FadeIn>
-
-        {/* Gumroad */}
-        <FadeIn delay={100}>
-          <div className="h-full rounded-2xl border border-pink-500/30 bg-slate-900 p-6 flex flex-col">
-            <div className="flex items-center gap-3 mb-4">
+      {/* Single Gumroad Payment Card */}
+      <FadeIn delay={100}>
+        <div className="mx-auto max-w-lg">
+          <div className="rounded-2xl border border-pink-500/30 bg-slate-900 p-6 sm:p-8">
+            <div className="flex items-center gap-3 mb-6">
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-pink-500/10 border border-pink-500/20 text-3xl">
                 {PAYMENT_OPTIONS.gumroad.icon}
               </div>
@@ -1826,26 +1766,26 @@ function PremiumPaymentPage() {
             </div>
 
             {/* Monthly */}
-            <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 mb-3">
-              <div className="flex items-center justify-between mb-2">
+            <div className="rounded-xl border border-slate-800 bg-slate-950 p-4 mb-4">
+              <div className="flex items-center justify-between mb-3">
                 <div>
                   <p className="text-sm font-bold">Monthly Plan</p>
                   <p className="text-xs text-slate-500">$2.99/month · Cancel anytime</p>
                 </div>
-                <span className="text-xl font-extrabold text-white">$2.99</span>
+                <span className="text-2xl font-extrabold text-white">$2.99</span>
               </div>
               <a
-                href={PAYMENT_OPTIONS.gumroad.monthlyUrl}
+                href={PAYMENT_OPTIONS.gumroad.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center rounded-xl bg-pink-600 px-4 py-3 text-sm font-bold text-white transition-all hover:bg-pink-500 hover:scale-[1.02] active:scale-95"
               >
-                🛒 Buy on Gumroad — Monthly
+                🛒 Subscribe — Monthly
               </a>
             </div>
 
             {/* Yearly */}
-            <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 flex-1">
+            <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4">
               <div className="flex items-center justify-between mb-1">
                 <div>
                   <div className="flex items-center gap-2">
@@ -1854,21 +1794,25 @@ function PremiumPaymentPage() {
                   </div>
                   <p className="text-xs text-slate-500">$19.99/year · Best value</p>
                 </div>
-                <span className="text-xl font-extrabold text-amber-300">$19.99</span>
+                <span className="text-2xl font-extrabold text-amber-300">$19.99</span>
               </div>
-              <p className="text-[11px] text-emerald-300 mb-2">💰 Save $15.89 per year vs monthly!</p>
+              <p className="text-[11px] text-emerald-300 mb-3">💰 Save $15.89 per year vs monthly!</p>
               <a
-                href={PAYMENT_OPTIONS.gumroad.yearlyUrl}
+                href={PAYMENT_OPTIONS.gumroad.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full text-center rounded-xl bg-gradient-to-r from-pink-500 to-violet-500 px-4 py-3 text-sm font-bold text-white transition-all hover:scale-[1.02] active:scale-95"
               >
-                🛒 Buy on Gumroad — Yearly
+                🛒 Subscribe — Yearly
               </a>
             </div>
+
+            <p className="mt-4 text-[11px] text-slate-500 text-center">
+              ⚠️ Use the same email address you used in the app for automatic activation.
+            </p>
           </div>
-        </FadeIn>
-      </div>
+        </div>
+      </FadeIn>
 
       {/* Premium Features */}
       <FadeIn delay={200} className="mt-10">

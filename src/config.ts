@@ -36,9 +36,9 @@ export const APP = {
   },
 
   // 💳 Secure Payment methods shown in footer
-  paymentMethods: [
-    { name: "PayPal", icon: "paypal" },
+     paymentMethods: [
     { name: "Gumroad", icon: "🛒" },
+    { name: "PayPal", icon: "🅿️" },
     { name: "Visa", icon: "💳" },
     { name: "Mastercard", icon: "💳" },
     { name: "Apple Pay", icon: "🍎" },
@@ -76,7 +76,7 @@ export const PRIVACY_POLICY = {
     {
       heading: "5. Third-Party Services",
       content:
-        "We may use third-party services for:\n\n• Payment Processing: PayPal and Gumroad for premium subscription payments. We do not store your payment card details.\n• Exchange Rates: Live currency exchange rate data from trusted financial data providers.\n• Analytics: Anonymous usage analytics to improve app performance and user experience.\n\nThese third parties have their own privacy policies governing the use of your information.",
+        "We may use third-party services for:\n\n• Payment Processing: Gumroad for premium subscription payments (supports PayPal, credit cards, Apple Pay). We do not store your payment card details.\n• Exchange Rates: Live currency exchange rate data from trusted financial data providers.\n• Analytics: Anonymous usage analytics to improve app performance and user experience.\n\nThese third parties have their own privacy policies governing the use of your information.",
     },
     {
       heading: "6. Data Sharing",
@@ -129,12 +129,12 @@ export const TERMS_OF_SERVICE = {
     {
       heading: "4. Free and Premium Plans",
       content:
-        "The App offers both free and premium subscription plans:\n\n• Free Plan: Includes basic features with limitations on the number of bills and available currencies.\n• Premium Plan: Provides unlimited access to all features including advanced analytics, payment history, savings projections, and data export.\n\nPremium subscriptions are processed securely through PayPal or Gumroad and auto-renew unless cancelled.",
+        "The App offers both free and premium subscription plans:\n\n• Free Plan: Includes basic features with limitations on the number of bills and available currencies.\n• Premium Plan: Provides unlimited access to all features including advanced analytics, payment history, savings projections, and data export.\n\nPremium subscriptions are processed securely through Gumroad (supports PayPal, credit cards, Apple Pay) and auto-renew unless cancelled.",
     },
     {
       heading: "5. Subscription & Billing",
       content:
-        "• Premium subscriptions are processed through PayPal or Gumroad.\n• Payment is charged at confirmation of purchase via your chosen payment method.\n• Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.\n• You can manage and cancel your subscription at any time through your PayPal or Gumroad account.\n• No partial refunds are provided for unused portions of a subscription period.",
+        "• Premium subscriptions are processed through Gumroad (supports PayPal, credit cards, Apple Pay).\n• Payment is charged at confirmation of purchase via your chosen payment method.\n• Subscriptions auto-renew unless cancelled at least 24 hours before the end of the current period.\n• You can manage and cancel your subscription at any time through your Gumroad account.\n• No partial refunds are provided for unused portions of a subscription period.",
     },
     {
       heading: "6. User Responsibilities",
@@ -174,25 +174,25 @@ export const TERMS_OF_SERVICE = {
 // 🔗 Update these URLs with your real PayPal/Gumroad links
 export const PAYMENT_OPTIONS = {
   title: "Upgrade to Premium",
-  subtitle: "Choose your preferred payment method and unlock all premium features instantly.",
-  paypal: {
-    name: "PayPal",
-    icon: "paypal",
-    description: "Pay with PayPal — secure, fast, and trusted worldwide.",
-    monthlyUrl: "https://www.paypal.com/webapps/billing/subscriptions?YOUR_MONTHLY_ID",
-    yearlyUrl: "https://www.paypal.com/webapps/billing/subscriptions?YOUR_YEARLY_ID",
-  },
+  subtitle: "Unlock all premium features instantly. Pay securely via Gumroad — supports credit card, PayPal, Apple Pay, and debit card.",
   gumroad: {
     name: "Gumroad",
     icon: "🛒",
-    description: "Pay with Gumroad — supports credit cards, Apple Pay, and Google Pay.",
-    monthlyUrl: "https://YOURNAME.gumroad.com/l/premium-monthly",
-    yearlyUrl: "https://YOURNAME.gumroad.com/l/premium-yearly",
+    description: "Pay securely via Gumroad — supports Credit Card, PayPal, Apple Pay, Google Pay, and Debit Card.",
+    url: "https://appclient2.gumroad.com/l/vhabmx",
   },
+  acceptedPayments: [
+    { name: "Credit Card", icon: "💳" },
+    { name: "PayPal", icon: "🅿️" },
+    { name: "Apple Pay", icon: "🍎" },
+    { name: "Google Pay", icon: "📱" },
+    { name: "Debit Card", icon: "💳" },
+  ],
   instructions: [
-    { step: 1, text: "Choose your plan and payment method below", icon: "👆" },
-    { step: 2, text: "Complete payment on the secure page", icon: "💳" },
-    { step: 3, text: "Return to the app — premium unlocks within minutes!", icon: "🚀" },
+    { step: 1, text: "Choose your plan (Monthly or Yearly)", icon: "👆" },
+    { step: 2, text: "Complete payment on Gumroad's secure page", icon: "💳" },
+    { step: 3, text: "Use the same email as your app account!", icon: "📧" },
+    { step: 4, text: "Return to the app — premium unlocks automatically!", icon: "🚀" },
   ],
   premiumFeatures: [
     "Unlimited bills & subscriptions",
@@ -207,35 +207,39 @@ export const PAYMENT_OPTIONS = {
   ],
 };
 
-export const PRICING_MODAL = {
-  title: "Upgrade to Premium",
-  icon: "💎",
-  steps: [
-    {
-      step: 1,
-      text: "Download & open All-in-One Bill Tracker on your Android device",
-      icon: "📱",
-    },
-    {
-      step: 2,
-      text: 'Go to Settings → tap "Upgrade" or "Premium Plans"',
-      icon: "⚙️",
-    },
-    {
-      step: 3,
-      text: "Choose your plan (Monthly or Yearly) and complete payment securely via PayPal or Gumroad",
-      icon: "💳",
-    },
-    {
-      step: 4,
-      text: "All premium features unlock instantly! Enjoy 🎉",
-      icon: "🚀",
-    },
-  ],
-  bottomNote:
-    "Your subscription is managed securely by PayPal or Gumroad. You can cancel anytime — no questions asked.",
-  ctaText: "Open Payment Page",
-  secondaryText: "I'll upgrade later",
+export const PRICING = {
+  monthly: {
+    label: "Monthly",
+    price: "$2.99",
+    period: "/month",
+    badge: "",
+    features: [
+      "All premium features",
+      "Cancel anytime",
+      "22+ currencies with live rates",
+      "Full analytics & trends",
+      "Priority support",
+    ],
+    cta: "Start Monthly",
+    highlighted: false,
+    url: "https://appclient2.gumroad.com/l/vhabmx",
+  },
+  yearly: {
+    label: "Yearly",
+    price: "$19.99",
+    period: "/year",
+    badge: "Save 44%",
+    features: [
+      "All premium features",
+      "Best value plan",
+      "22+ currencies with live rates",
+      "Full analytics & trends",
+      "Priority support",
+    ],
+    cta: "Start Yearly",
+    highlighted: true,
+    url: "https://appclient2.gumroad.com/l/vhabmx",
+  },
 };
 
 export const COOKIE_POLICY = {
@@ -261,7 +265,7 @@ export const COOKIE_POLICY = {
     {
       heading: "4. Third-Party Cookies",
       content:
-        "Some third-party services used within our App or website may set their own cookies:\n\n• PayPal: For secure payment processing and subscription management.\n• Gumroad: For payment processing and subscription management.\n• Analytics Providers: For anonymous usage tracking.\n\nThese third parties have their own cookie and privacy policies.",
+        "Some third-party services used within our App or website may set their own cookies:\n\n• Gumroad: For secure payment processing and subscription management (supports PayPal, credit cards, Apple Pay).\n• Analytics Providers: For anonymous usage tracking.\n\nThese third parties have their own cookie and privacy policies.",
     },
     {
       heading: "5. Managing Cookies",
@@ -616,7 +620,7 @@ export const FAQ_ITEMS = [
   {
     question: "Can I cancel my subscription anytime?",
       answer:
-        "Yes, you can cancel anytime through your PayPal or Gumroad account. You'll continue to have premium access until the end of your current billing period.",
+        "Yes, you can cancel anytime through your Gumroad account. You'll continue to have premium access until the end of your current billing period.",
   },
   {
     question: "How does the Late Fee Calculator work?",
