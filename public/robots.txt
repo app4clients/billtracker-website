@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://billtracker.app/sitemap.xml
+Sitemap: https://app4clients.com/sitemap.xml
