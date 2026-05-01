@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Subscribe to Premium - All-in-One Bill Tracker</title>
+  <script src="https://gumroad.com/js/gumroad.js"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #0a0a1a;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+    .logo { width: 72px; height: 72px; border-radius: 18px; margin-bottom: 16px; }
+    h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; text-align: center; }
+    .subtitle { color: #94a3b8; font-size: 14px; margin-bottom: 28px; text-align: center; }
+    .user-info {
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      border-radius: 12px;
+      padding: 12px 16px;
+      margin-bottom: 24px;
+      width: 100%;
+      max-width: 440px;
+    }
+    .user-info p { font-size: 13px; color: #94a3b8; }
+    .user-info .email { color: #06b6d4; font-weight: 600; }
+    .plans { display: grid; gap: 16px; width: 100%; max-width: 440px; }
+    .plan-card {
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 20px;
+      background: #0f172a;
+      position: relative;
+    }
+    .plan-card.selected { border-color: #06b6d4; box-shadow: 0 0 20px rgba(6, 182, 212, 0.15); }
+    .plan-card.yearly { border-color: rgba(6, 182, 212, 0.4); }
+    .badge {
+      position: absolute; top: -10px; right: 16px;
+      background: #10b981; color: #fff; font-size: 11px;
+      font-weight: 700; padding: 2px 10px; border-radius: 20px;
+    }
+    .plan-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .plan-price { font-size: 28px; font-weight: 700; color: #06b6d4; }
+    .plan-price small { font-size: 13px; color: #64748b; font-weight: 400; }
+    .plan-features { margin-top: 12px; list-style: none; font-size: 13px; color: #94a3b8; }
+    .plan-features li { padding: 3px 0; }
+    .plan-features li::before { content: "✓ "; color: #10b981; }
+    .subscribe-btn {
+      display: block; width: 100%; padding: 14px 24px; border-radius: 12px;
+      font-size: 16px; font-weight: 700; cursor: pointer; border: none;
+      text-decoration: none; text-align: center; transition: all 0.2s; margin-top: 16px;
+    }
+    .subscribe-btn-primary { background: #f59e0b; color: #0a0a1a; }
+    .subscribe-btn-primary:hover { background: #fbbf24; transform: scale(1.02); }
+    .subscribe-btn-secondary { background: transparent; border: 1px solid #06b6d4; color: #06b6d4; }
+    .subscribe-btn-secondary:hover { background: rgba(6, 182, 212, 0.1); }
+    .info-box {
+      max-width: 440px; width: 100%; background: rgba(245,158,11,0.1);
+      border: 1px solid rgba(245,158,11,0.3); border-radius: 12px;
+      padding: 14px 18px; text-align: center; margin-top: 20px;
+    }
+    .info-box p { font-size: 13px; color: #fbbf24; font-weight: 600; }
+    .info-box .sub { font-size: 12px; color: #94a3b8; margin-top: 6px; font-weight: 400; }
+    .or-divider { text-align: center; color: #475569; font-size: 13px; margin: 20px 0; }
+    .error-box {
+      background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3);
+      border-radius: 12px; padding: 20px; color: #fca5a5; text-align: center;
+      max-width: 440px; width: 100%;
+    }
+    .manage-section {
+      max-width: 440px; width: 100%; background: #0f172a;
+      border: 1px solid #334155; border-radius: 16px; padding: 24px; text-align: center;
+    }
+    .manage-section p { color: #94a3b8; font-size: 14px; margin-bottom: 12px; }
+    .manage-steps {
+      text-align: left; background: rgba(6,182,212,0.05); border: 1px solid rgba(6,182,212,0.2);
+      border-radius: 8px; padding: 14px; margin-top: 16px;
+    }
+    .manage-steps p { font-size: 12px; color: #06b6d4; font-weight: 600; margin-bottom: 8px; }
+    .manage-steps ol { font-size: 12px; color: #94a3b8; padding-left: 18px; line-height: 2; }
+    .back-link { display: inline-block; margin-top: 24px; color: #64748b; font-size: 13px; text-decoration: none; }
+    .back-link:hover { color: #94a3b8; }
+    .loading { text-align: center; padding: 40px; color: #94a3b8; }
+    @media (min-width: 640px) {
+      .plans { grid-template-columns: 1fr 1fr; max-width: 600px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading -->
+  <div id="loading" class="loading"><p>Loading payment options...</p></div>
+
+  <!-- Error -->
+  <div id="error" class="error-box" style="display:none;">
+    <p id="error-message">Invalid payment link. Please go back to the app and try again.</p>
+    <a href="https://billtracker-website.pages.dev" class="back-link" style="margin-top:14px;display:inline-block;">← Go to homepage</a>
+  </div>
+
+  <!-- Subscribe Page -->
+  <div id="subscribe-page" style="display:none;flex-direction:column;align-items:center;width:100%;">
+    <h1>💎 Upgrade to Premium</h1>
+    <p class="subtitle">Unlock unlimited bills, analytics, savings goals & more</p>
+
+    <div class="user-info" id="user-info">
+      <p>Account: <span class="email" id="display-email">-</span></p>
+      <p style="margin-top:4px;font-size:11px;color:#64748b;">Use this same email when paying on Gumroad</p>
+    </div>
+
+    <div class="plans">
+      <!-- Monthly -->
+      <div class="plan-card" id="plan-monthly">
+        <p class="plan-name">Monthly</p>
+        <p class="plan-price">$2.99<small>/month</small></p>
+        <ul class="plan-features">
+          <li>Unlimited bills</li>
+          <li>Full analytics</li>
+          <li>Savings projections</li>
+          <li>22+ currencies</li>
+        </ul>
+        <a id="gumroad-monthly-link" class="subscribe-btn subscribe-btn-secondary" href="#" target="_blank">
+          Subscribe Monthly →
+        </a>
+      </div>
+
+      <!-- Yearly -->
+      <div class="plan-card yearly" id="plan-yearly">
+        <span class="badge">BEST VALUE −44%</span>
+        <p class="plan-name">Yearly</p>
+        <p class="plan-price">$19.99<small>/year</small></p>
+        <p style="font-size:12px;color:#10b981;font-weight:600;margin-top:4px;">Save $15.89/year!</p>
+        <ul class="plan-features">
+          <li>Everything in Monthly</li>
+          <li>Pay once per year</li>
+          <li>Priority support</li>
+          <li>All future features</li>
+        </ul>
+        <a id="gumroad-yearly-link" class="subscribe-btn subscribe-btn-primary" href="#" target="_blank">
+          Subscribe Yearly →
+        </a>
+      </div>
+    </div>
+
+    <div class="or-divider">— After payment, return to the app —</div>
+
+    <div class="info-box">
+      <p>📱 Return to your app after payment</p>
+      <p class="sub">Your premium will activate automatically.<br>If not, tap "🔄 Check Premium Status" in Settings.</p>
+    </div>
+
+    <a href="https://billtracker-website.pages.dev" class="back-link">← Back to homepage</a>
+  </div>
+
+  <!-- Manage Page -->
+  <div id="manage-page" style="display:none;flex-direction:column;align-items:center;width:100%;">
+    <h1>📋 Manage Subscription</h1>
+    <p class="subtitle">Account: <span class="email" id="manage-email">-</span></p>
+
+    <div class="manage-section">
+      <h2 style="margin-bottom:12px;">Subscription Management</h2>
+      <p>To cancel, update payment, or view your subscription:</p>
+      <p style="margin-top:8px;"><strong id="manage-email-bold">-</strong></p>
+
+      <a href="https://app.gumroad.com/subscriptions" target="_blank"
+         class="subscribe-btn subscribe-btn-primary" style="max-width:300px;margin:20px auto 0;">
+        Manage on Gumroad →
+      </a>
+
+      <div class="manage-steps">
+        <p>💡 How to cancel or change:</p>
+        <ol>
+          <li>Click "Manage on Gumroad" above</li>
+          <li>Log in with your subscription email</li>
+          <li>Find "All-in-One Bill Tracker Premium"</li>
+          <li>Click "Cancel" or update payment method</li>
+        </ol>
+        <p style="font-size:11px;color:#64748b;margin-top:10px;">
+          After cancellation, you keep premium until end of billing period.
+        </p>
+      </div>
+    </div>
+
+    <a href="https://billtracker-website.pages.dev" class="back-link">← Back to homepage</a>
+  </div>
+
+  <script>
+    // ============================================================
+    // VOTRE LIEN GUMROAD (un seul produit avec 2 options)
+    // ============================================================
+    var GUMROAD_PRODUCT_URL = "https://app4clients.gumroad.com/l/vhabmx";
+
+    function init() {
+      var params = new URLSearchParams(window.location.search);
+      var uid = params.get("uid") || "";
+      var email = params.get("email") || "";
+      var plan = params.get("plan") || "yearly";
+      var action = params.get("action") || "subscribe";
+
+      document.getElementById("loading").style.display = "none";
+
+      if (!uid || !email) {
+        document.getElementById("error").style.display = "block";
+        return;
+      }
+
+      if (action === "manage") {
+        showManage(email);
+      } else {
+        showSubscribe(uid, email, plan);
+      }
+    }
+
+    function showSubscribe(uid, email, plan) {
+      document.getElementById("subscribe-page").style.display = "flex";
+      document.getElementById("display-email").textContent = email;
+
+      // Construire les liens Gumroad avec custom fields
+      // L'email est pré-remplie + on passe uid pour le webhook
+      var gumroadParams =
+        "?email=" + encodeURIComponent(email) +
+        "&wanted=true" +
+        "&Custom_user_id=" + encodeURIComponent(uid) +
+        "&Custom_email=" + encodeURIComponent(email);
+
+      // Les 2 boutons ouvrent le même produit Gumroad
+      // L'utilisateur choisira Monthly ou Yearly sur Gumroad
+      var fullUrl = GUMROAD_PRODUCT_URL + gumroadParams;
+
+      document.getElementById("gumroad-monthly-link").href = fullUrl;
+      document.getElementById("gumroad-yearly-link").href = fullUrl;
+
+      // Highlight le plan choisi depuis l'app
+      if (plan === "monthly") {
+        document.getElementById("plan-monthly").classList.add("selected");
+        document.getElementById("plan-monthly").scrollIntoView({ behavior: "smooth" });
+      } else {
+        document.getElementById("plan-yearly").classList.add("selected");
+        document.getElementById("plan-yearly").scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    function showManage(email) {
+      document.getElementById("manage-page").style.display = "flex";
+      document.getElementById("manage-email").textContent = email;
+      document.getElementById("manage-email-bold").textContent = email;
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>
