@@ -101,7 +101,7 @@
   <!-- Error -->
   <div id="error" class="error-box" style="display:none;">
     <p id="error-message">Invalid payment link. Please go back to the app and try again.</p>
-    <a href="https://billtracker-website.pages.dev" class="back-link" style="margin-top:14px;display:inline-block;">← Go to homepage</a>
+    <a href="https://app4clients.com" class="back-link" style="margin-top:14px;display:inline-block;">← Go to homepage</a>
   </div>
 
   <!-- Subscribe Page -->
@@ -155,7 +155,7 @@
       <p class="sub">Your premium will activate automatically.<br>If not, tap "🔄 Check Premium Status" in Settings.</p>
     </div>
 
-    <a href="https://billtracker-website.pages.dev" class="back-link">← Back to homepage</a>
+    <a href="https://app4clients.com" class="back-link">← Back to homepage</a>
   </div>
 
   <!-- Manage Page -->
@@ -187,12 +187,12 @@
       </div>
     </div>
 
-    <a href="https://billtracker-website.pages.dev" class="back-link">← Back to homepage</a>
+    <a href="https://app4clients.com" class="back-link">← Back to homepage</a>
   </div>
 
   <script>
     // ============================================================
-    // VOTRE LIEN GUMROAD (un seul produit avec 2 options)
+    // VOTRE LIEN GUMROAD (1 produit avec 2 options monthly/yearly)
     // ============================================================
     var GUMROAD_PRODUCT_URL = "https://app4clients.gumroad.com/l/vhabmx";
 
@@ -221,18 +221,17 @@
       document.getElementById("subscribe-page").style.display = "flex";
       document.getElementById("display-email").textContent = email;
 
-      // Construire les liens Gumroad avec custom fields
-      // L'email est pré-remplie + on passe uid pour le webhook
+      // Lien Gumroad avec email pré-remplie + custom fields pour le webhook
       var gumroadParams =
         "?email=" + encodeURIComponent(email) +
         "&wanted=true" +
         "&Custom_user_id=" + encodeURIComponent(uid) +
         "&Custom_email=" + encodeURIComponent(email);
 
-      // Les 2 boutons ouvrent le même produit Gumroad
-      // L'utilisateur choisira Monthly ou Yearly sur Gumroad
       var fullUrl = GUMROAD_PRODUCT_URL + gumroadParams;
 
+      // Les 2 boutons ouvrent le même produit Gumroad
+      // L'utilisateur choisit Monthly ou Yearly sur Gumroad
       document.getElementById("gumroad-monthly-link").href = fullUrl;
       document.getElementById("gumroad-yearly-link").href = fullUrl;
 
